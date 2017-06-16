@@ -1,0 +1,36 @@
+id: dm_ext_db_user
+migration_tags: null
+migration_group: dm_external
+dependencies:
+  enforced:
+    module:
+      - drupalcamp_migration
+label: 'Database import for Users from legacy Drupal database'
+source:
+  plugin: user_import
+  target: source_migration
+process:
+  name: name
+  pass: pass
+  mail: mail
+  created: created
+  access: access
+  login: login
+  status: status
+  timezone: timezone
+  langcode:
+    plugin: user_langcode
+    source: language
+    fallback_to_site_default: false
+  preferred_langcode:
+    plugin: user_langcode
+    source: language
+    fallback_to_site_default: true
+  preferred_admin_langcode:
+    plugin: user_langcode
+    source: language
+    fallback_to_site_default: true
+  init: init
+destination:
+  plugin: entity:user
+migration_dependencies: {}

@@ -1,0 +1,11 @@
+id: dm_external
+label: Drupalcamp Montreal migrations from external database
+description: Provides migration imports from external databases
+dependencies:
+  enforced:
+    module:
+      - drupalcamp_migration
+source_type: External Database
+shared_configuration:
+  source:
+    key: legacy

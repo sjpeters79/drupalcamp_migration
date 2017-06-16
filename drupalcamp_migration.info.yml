@@ -1,0 +1,11 @@
+name: 'Drupalcamp Montreal Migrate Example Module'
+description: 'Registers migration plugins and provides content.'
+type: module
+core: 8.x
+package: 'Drupalcamp Montreal'
+
+# Required modules
+dependencies:
+  - migrate
+  - migrate_plus
+  - migrate_tools

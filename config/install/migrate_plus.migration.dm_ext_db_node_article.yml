@@ -1,0 +1,39 @@
+id: dm_ext_db_node_article
+migration_tags: null
+migration_group: dm_external
+dependencies:
+  enforced:
+    module:
+      - drupalcamp_migration
+label: 'Database import for Commitment from legacy Drupal database'
+source:
+  plugin: article_node
+  target: legacy
+process:
+  title: title
+  uid:
+    plugin: migration
+    migration: dm_ext_db_user
+    source: uid
+  type:
+    plugin: default_value
+    default_value: article
+  body/value: body
+  body/format:
+    plugin: default_value
+    default_value: basic_html
+  langcode: language
+  field_tags:
+    plugin: iterator
+    source: tags
+    process:
+      target_id:
+        plugin: migration
+        migration: dm_ext_db_taxonomy_term
+        source: field_tags_tid
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - dm_ext_db_user
+    - dm_ext_db_taxonomy_term
