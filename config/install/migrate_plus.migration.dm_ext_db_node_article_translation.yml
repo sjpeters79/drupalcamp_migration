@@ -43,6 +43,7 @@ process:
     default_value: "en"
 destination:
   plugin: 'entity:node'
+  translations: true
 migration_dependencies:
   required:
     - dm_ext_db_user
