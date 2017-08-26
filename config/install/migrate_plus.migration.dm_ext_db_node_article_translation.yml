@@ -47,3 +47,4 @@ migration_dependencies:
   required:
     - dm_ext_db_user
     - dm_ext_db_taxonomy_term
+    - dm_ext_db_node_article

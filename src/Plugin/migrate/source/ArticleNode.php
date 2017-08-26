@@ -58,6 +58,22 @@ class ArticleNode extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
+
+    // Translation support.
+    if (!empty($row->getSourceProperty('translations'))) {
+      $row->setSourceProperty('language', 'fr');
+    }
+
+    // Title Field.
+    $title = $this->select('field_data_title_field', 'db')
+      ->fields('db', ['title_field_value'])
+      ->condition('entity_id', $row->getSourceProperty('nid'))
+      ->condition('revision_id', $row->getSourceProperty('vid'))
+      ->condition('language', $row->getSourceProperty('language'))
+      ->condition('bundle', 'commitment')
+      ->execute()
+      ->fetchCol();
+
     // Body.
     $body = $this->select('field_data_body', 'db')
       ->fields('db', ['body_value'])
@@ -76,6 +92,13 @@ class ArticleNode extends SqlBase {
       ->condition('bundle', 'article')
       ->execute()
       ->fetchAllAssoc('field_tags_tid');
+
+    if (!empty($title[0])) {
+      $row->setSourceProperty('title', $title[0]);
+    }
+    elseif (!empty($row->getSourceProperty('translations'))) {
+      return FALSE;
+    }
 
     $row->setSourceProperty('body', $body[0]);
     $row->setSourceProperty('tags', $tags);
