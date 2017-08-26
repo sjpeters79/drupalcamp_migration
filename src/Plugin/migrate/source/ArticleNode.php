@@ -70,7 +70,7 @@ class ArticleNode extends SqlBase {
       ->condition('entity_id', $row->getSourceProperty('nid'))
       ->condition('revision_id', $row->getSourceProperty('vid'))
       ->condition('language', $row->getSourceProperty('language'))
-      ->condition('bundle', 'commitment')
+      ->condition('bundle', 'article')
       ->execute()
       ->fetchCol();
 
@@ -83,6 +83,7 @@ class ArticleNode extends SqlBase {
       ->condition('bundle', 'article')
       ->execute()
       ->fetchCol();
+
     // Tags Used.
     $tags = $this->select('field_data_field_tags', 'db')
       ->fields('db', ['field_tags_tid'])
